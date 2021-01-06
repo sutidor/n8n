@@ -1,6 +1,6 @@
-apk --virtual build-dependencies add python make g++
+apk --virtual build-dependencies add python make g++ bash
 CUSTOM_MODULE_DIR="/home/node/.n8n/custom"
-CUSTOM_FUNCTION_DIR="/usr/local/lib/node_modules"
+CUSTOM_FUNCTION_DIR="/usr/local/lib"
 
 if [ ! -z "$N8N_CUSTOM_EXTENSIONS" ]
 then
