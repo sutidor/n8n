@@ -8,6 +8,8 @@ fi
 
 chown -R node /home/node
 
+bash -c "/install-custom-modules.sh"
+
 if [ "$#" -gt 0 ]; then
   # Got started with arguments
   exec su-exec node "$@"
