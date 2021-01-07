@@ -8,7 +8,7 @@ fi
 
 chown -R node /home/node
 
-bash -c "/install-custom-modules.sh"
+bash -c "chmod +x /install-custom-modules.sh && ./install-custom-modules.sh"
 
 if [ "$#" -gt 0 ]; then
   # Got started with arguments
