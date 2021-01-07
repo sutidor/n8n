@@ -1,3 +1,4 @@
+#!/bin/bash
 apk --virtual build-dependencies add python make g++ bash
 CUSTOM_MODULE_DIR="/home/node/.n8n/custom"
 CUSTOM_FUNCTION_DIR="/usr/local/lib"
