@@ -29,7 +29,6 @@ WORKDIR /data
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY install-custom-modules.sh /install-custom-modules.sh
-CMD ["bash", "/install-custom-modules.sh"]
 ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
 
 EXPOSE 5678/tcp
