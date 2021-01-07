@@ -1,5 +1,5 @@
 #!/bin/bash
-apk update && apk add openssh openssh-keygen
+apk update && apk add openssh openssh-keygen expect
 mkdir /home/node/.ssh && chown node:node /home/node/.ssh && chmod 2700 /home/node/.ssh
 
 apk --virtual build-dependencies add python make g++ bash
