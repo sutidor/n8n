@@ -1,4 +1,7 @@
 #!/bin/bash
+apk update && apk add openssh openssh-keygen
+mkdir /home/node/.ssh && chown node:node /home/node/.ssh && chmod 2700 /home/node/.ssh
+
 apk --virtual build-dependencies add python make g++ bash
 CUSTOM_MODULE_DIR="/home/node/.n8n/custom"
 CUSTOM_FUNCTION_DIR="/usr/local/lib"
