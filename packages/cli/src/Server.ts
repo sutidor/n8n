@@ -92,9 +92,7 @@ import {
 import {
 	FindManyOptions,
 	FindOneOptions,
-	LessThan,
 	LessThanOrEqual,
-	MoreThanOrEqual,
 	Not,
 } from 'typeorm';
 
@@ -134,6 +132,7 @@ class App {
 	protocol: string;
 	sslKey: string;
 	sslCert: string;
+	payloadSizeMax: number;
 
 	presetCredentialsLoaded: boolean;
 
@@ -147,6 +146,7 @@ class App {
 		this.saveManualExecutions = config.get('executions.saveDataManualExecutions') as boolean;
 		this.executionTimeout = config.get('executions.timeout') as number;
 		this.maxExecutionTimeout = config.get('executions.maxTimeout') as number;
+		this.payloadSizeMax = config.get('endpoints.payloadSizeMax') as number;
 		this.timezone = config.get('generic.timezone') as string;
 		this.restEndpoint = config.get('endpoints.rest') as string;
 
@@ -371,7 +371,7 @@ class App {
 
 		// Support application/json type post data
 		this.app.use(bodyParser.json({
-			limit: '16mb', verify: (req, res, buf) => {
+			limit: this.payloadSizeMax + 'mb', verify: (req, res, buf) => {
 				// @ts-ignore
 				req.rawBody = buf;
 			},
@@ -380,7 +380,7 @@ class App {
 		// Support application/xml type post data
 		// @ts-ignore
 		this.app.use(bodyParser.xml({
-			limit: '16mb', xmlParseOptions: {
+			limit: this.payloadSizeMax + 'mb', xmlParseOptions: {
 				normalize: true,     // Trim whitespace inside text nodes
 				normalizeTags: true, // Transform tags to lowercase
 				explicitArray: false, // Only put properties in array if length > 1
@@ -388,7 +388,7 @@ class App {
 		}));
 
 		this.app.use(bodyParser.text({
-			limit: '16mb', verify: (req, res, buf) => {
+			limit: this.payloadSizeMax + 'mb', verify: (req, res, buf) => {
 				// @ts-ignore
 				req.rawBody = buf;
 			},
@@ -624,7 +624,7 @@ class App {
 				try {
 					await this.externalHooks.run('workflow.activate', [responseData]);
 
-					await this.activeWorkflowRunner.add(id);
+					await this.activeWorkflowRunner.add(id, isActive ? 'update' : 'activate');
 				} catch (error) {
 					// If workflow could not be activated set it again to inactive
 					newWorkflowData.active = false;
@@ -670,6 +670,7 @@ class App {
 			const startNodes: string[] | undefined = req.body.startNodes;
 			const destinationNode: string | undefined = req.body.destinationNode;
 			const executionMode = 'manual';
+			const activationMode = 'manual';
 
 			const sessionId = GenericHelpers.getSessionId(req);
 
@@ -679,7 +680,7 @@ class App {
 				const additionalData = await WorkflowExecuteAdditionalData.getBase(credentials);
 				const nodeTypes = NodeTypes();
 				const workflowInstance = new Workflow({ id: workflowData.id, name: workflowData.name, nodes: workflowData.nodes, connections: workflowData.connections, active: false, nodeTypes, staticData: undefined, settings: workflowData.settings });
-				const needsWebhook = await this.testWebhooks.needsWebhookData(workflowData, workflowInstance, additionalData, executionMode, sessionId, destinationNode);
+				const needsWebhook = await this.testWebhooks.needsWebhookData(workflowData, workflowInstance, additionalData, executionMode, activationMode, sessionId, destinationNode);
 				if (needsWebhook === true) {
 					return {
 						waitingForWebhook: true,
