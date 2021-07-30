@@ -348,6 +348,7 @@ export interface INode {
 	type: string;
 	position: [number, number];
 	disabled?: boolean;
+	notes?: string;
 	notesInFlow?: boolean;
 	retryOnFail?: boolean;
 	maxTries?: number;
@@ -607,6 +608,7 @@ export interface IWorkflowDataProxyData {
 	$json: any; // tslint:disable-line:no-any
 	$node: any; // tslint:disable-line:no-any
 	$parameter: any; // tslint:disable-line:no-any
+	$position: any; // tslint:disable-line:no-any
 	$workflow: any; // tslint:disable-line:no-any
 }
 
