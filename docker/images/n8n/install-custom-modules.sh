@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# create folder to install modules in
+if [ ! -d /home/node/.n8n ] ; then
+  chmod o+rx /home/node/.n8n 
+  chown -R node /home/node/.n8n 
+fi
+
 if [ "$OPENSSH" = true ] ; then
   apk update && apk add openssh openssh-keygen expect
 	mkdir /home/node/.ssh && chown node:node /home/node/.ssh && chmod 2700 /home/node/.ssh
