@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $OPENSSH = true ] ; then
+if [ "$OPENSSH" = true ] ; then
   apk update && apk add openssh openssh-keygen expect
 	mkdir /home/node/.ssh && chown node:node /home/node/.ssh && chmod 2700 /home/node/.ssh
 fi
@@ -21,6 +21,7 @@ then
 else
     if [[ ! -d "$CUSTOM_MODULE_DIR" ]]
     then
+				ls -al /home/node
         mkdir "$CUSTOM_MODULE_DIR"
     fi
 fi
