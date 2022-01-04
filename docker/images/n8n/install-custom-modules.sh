@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# run only on first creation of container
+CONTAINER_FIRST_STARTUP="CONTAINER_FIRST_STARTUP"
+if [ ! -e /$CONTAINER_FIRST_STARTUP ]; then
+    touch /$CONTAINER_FIRST_STARTUP
+else
+    exit 0
+fi
+
 # create folder to install modules in
 n8ndir="/home/node/.n8n"
 if [ ! -d $n8ndir ] ; then
