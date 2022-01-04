@@ -2,7 +2,7 @@
 
 # create folder to install modules in
 n8ndir="/home/node/.n8n"
-if [ ! -d $home ] ; then
+if [ ! -d $n8ndir ] ; then
 	mkdir $n8ndir
   chmod o+rx $n8ndir
   chown -R node $n8ndir
