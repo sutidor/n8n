@@ -1,3 +1,17 @@
+# custom extensions
+
+The first of the directory specified in N8N_CUSTOM_EXTENSIONS gets created and will be the install directory for custom modules (Delimiter ;)
+example -e N8N_CUSTOM_EXTENSIONS="/home/jim/n8n/custom-nodes;/data/n8n/nodes
+
+Custom modules are installed according to $CUSTOM_MODULES (Delimiter ;)
+example -e CUSTOM_MODULES="n8n-nodes-suitecrm;n8n-nodes-dnc-activecampaign-legacy
+
+Custom modules with unsafe-perms are installed according to $CUSTOM_MODULES_UNSAFEPERM (Delimiter ;)
+example -e CUSTOM_MODULES_UNSAFEPERM="n8n-nodes-dnc-suitecrm
+
+Custom modules for functions according to NODE_FUNCTION_ALLOW_EXTERNAL (such as date-fns) will be installed to /usr/local/lib “alongside of n8n” (Delimiter ,)
+example -e NODE_FUNCTION_ALLOW_EXTERNAL="date-fns,date-fns-tz,feiertagejs
+
 # n8n - Workflow Automation Tool
 
 ![n8n.io - Workflow Automation](https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png)
