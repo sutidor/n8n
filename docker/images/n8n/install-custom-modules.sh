@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if $OPENSSH; then
+if [ $OPENSSH = true ] ; then
   apk update && apk add openssh openssh-keygen expect
 	mkdir /home/node/.ssh && chown node:node /home/node/.ssh && chmod 2700 /home/node/.ssh
 fi
@@ -55,5 +55,5 @@ then
     done
 fi
 
-apk del build-dependencies
-rm -rf /var/cache/apk/*
+#apk del build-dependencies
+#rm -rf /var/cache/apk/*
