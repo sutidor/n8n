@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # create folder to install modules in
-if [ ! -d /home/node/.n8n ] ; then
-  chmod o+rx /home/node/.n8n 
-  chown -R node /home/node/.n8n 
+n8ndir="/home/node/.n8n"
+if [ ! -d $home ] ; then
+	mkdir $n8ndir
+  chmod o+rx $n8ndir
+  chown -R node $n8ndir
 fi
 
 if [ "$OPENSSH" = true ] ; then
